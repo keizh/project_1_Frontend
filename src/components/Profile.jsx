@@ -9,6 +9,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { NavLink } from "react-router-dom";
+import { auth } from "../utils/auth";
+import { useEffect, useRef } from "react";
 
 export default function ProfileMenu() {
   const navigate = useNavigate();
@@ -16,13 +18,24 @@ export default function ProfileMenu() {
     localStorage.removeItem(`project_1`);
     navigate("/signin");
   };
-  const token = localStorage.getItem(`project_1`);
-  const { name } = jwtDecode(token);
-  const initials = name
-    .split(" ")
-    .map((ele) => ele[0].toUpperCase())
-    .join("");
-  console.log(initials);
+  const initials = useRef("O");
+
+  useEffect(() => {
+    const authAccess = auth();
+    console.log(`access : `, authAccess);
+    if (!authAccess) {
+      navigate("/signin");
+    } else {
+      const token = localStorage.getItem(`project_1`);
+      const { name } = jwtDecode(token);
+      initials.current = name
+        .split(" ")
+        .map((ele) => ele[0].toUpperCase())
+        .join("");
+      console.log(initials);
+    }
+  }, [navigate]);
+
   return (
     <Menu>
       <MenuHandler>
@@ -30,7 +43,7 @@ export default function ProfileMenu() {
           variant="circular"
           alt="tania andrew"
           className="cursor-pointer"
-          src={`https://placehold.co/600x400?text=${initials}`}
+          src={`https://placehold.co/600x400?text=${initials.current}`}
         />
       </MenuHandler>
       <MenuList>
