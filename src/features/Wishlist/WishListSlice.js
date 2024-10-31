@@ -1,12 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchWishList = createAsyncThunk("fetch/wishList", async () => {
-  const response = await fetch(`http://localhost:5500/wishlist`, {
-    method: "GET",
-    headers: {
-      Authorization: localStorage.getItem("project_1"),
-    },
-  });
+  const response = await fetch(
+    `https://project-1-backend-v3.vercel.app/wishlist`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: localStorage.getItem("project_1"),
+      },
+    }
+  );
 
   const data = await response.json();
   // console.log(data);
@@ -17,14 +20,17 @@ export const fetchWishList = createAsyncThunk("fetch/wishList", async () => {
 export const addToWishList = createAsyncThunk(
   "Add/wishList",
   async (product, { dispatch }) => {
-    const response = await fetch(`http://localhost:5500/wishlist/add`, {
-      method: "POST",
-      body: JSON.stringify(product),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("project_1"),
-      },
-    });
+    const response = await fetch(
+      `https://project-1-backend-v3.vercel.app/wishlist/add`,
+      {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("project_1"),
+        },
+      }
+    );
     dispatch(fetchWishList());
     const data = await response.json();
     console.log(data);
@@ -34,14 +40,17 @@ export const addToWishList = createAsyncThunk(
 export const removeFromWishList = createAsyncThunk(
   "Remove/wishList",
   async (productIdContainingObject, { dispatch }) => {
-    const response = await fetch(`http://localhost:5500/wishlist/remove`, {
-      method: "POST",
-      body: JSON.stringify(productIdContainingObject),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("project_1"),
-      },
-    });
+    const response = await fetch(
+      `https://project-1-backend-v3.vercel.app/wishlist/remove`,
+      {
+        method: "POST",
+        body: JSON.stringify(productIdContainingObject),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("project_1"),
+        },
+      }
+    );
     dispatch(fetchWishList());
     const data = await response.json();
     console.log(data);

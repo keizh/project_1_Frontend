@@ -1,12 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchProducts = createAsyncThunk("fetch/products", async () => {
-  const response = await fetch(`http://localhost:5500/product`, {
-    method: "GET",
-    headers: {
-      Authorization: localStorage.getItem("project_1"),
-    },
-  });
+  const response = await fetch(
+    `https://project-1-backend-v3.vercel.app/product`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: localStorage.getItem("project_1"),
+      },
+    }
+  );
   const data = await response.json();
   console.log(data);
   return data;
@@ -15,12 +18,15 @@ export const fetchProducts = createAsyncThunk("fetch/products", async () => {
 export const fetchSingleProduct = createAsyncThunk(
   "fetch/SingleProduct",
   async (id) => {
-    const response = await fetch(`http://localhost:5500/product/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: localStorage.getItem("project_1"),
-      },
-    });
+    const response = await fetch(
+      `https://project-1-backend-v3.vercel.app/product/${id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: localStorage.getItem("project_1"),
+        },
+      }
+    );
     const data = await response.json();
     console.log(data);
     return data;
@@ -32,7 +38,7 @@ export const fetchByCategory = createAsyncThunk(
   "fetch/productByCategory",
   async (ObjectWithCategoryName) => {
     const response = await fetch(
-      `http://localhost:5500/productByCategory/${ObjectWithCategoryName.category}`,
+      `https://project-1-backend-v3.vercel.app/productByCategory/${ObjectWithCategoryName.category}`,
       {
         method: "GET",
         headers: {

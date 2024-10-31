@@ -17,13 +17,16 @@ const Signin = () => {
     event.preventDefault();
     setLoadingState(true);
     try {
-      const response = await fetch(`http://localhost:5500/sign-in`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://project-1-backend-v3.vercel.app/sign-in`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const DATAfetched = await response.json();
       setMssg(DATAfetched);
       if (DATAfetched.status == "success") {

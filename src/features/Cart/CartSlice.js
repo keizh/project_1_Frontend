@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchCart = createAsyncThunk("get/cart", async () => {
-  const response = await fetch(`http://localhost:5500/cart`, {
+  const response = await fetch(`https://project-1-backend-v3.vercel.app/cart`, {
     method: "GET",
     headers: {
       Authorization: localStorage.getItem(`project_1`),
@@ -15,7 +15,7 @@ export const fetchCart = createAsyncThunk("get/cart", async () => {
 export const postToCart = createAsyncThunk(
   "post/cart",
   async (product, { dispatch }) => {
-    const response = await fetch(`http://localhost:5500/cart`, {
+    const response = await fetch(`https://project-1-backend-v3.vercel.app/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const removeFromcart = createAsyncThunk(
   async (ObjectWithProductCardId, { dispatch }) => {
     console.log(`delete it`, ObjectWithProductCardId);
     const response = await fetch(
-      `http://localhost:5500/cart/${ObjectWithProductCardId.productCartId}`,
+      `https://project-1-backend-v3.vercel.app/cart/${ObjectWithProductCardId.productCartId}`,
       {
         method: "DELETE",
         headers: {
@@ -52,7 +52,7 @@ export const addOneToProductQuantityInCart = createAsyncThunk(
   "Add/CartProductQuantity",
   async (objectWithProductCartId, { dispatch }) => {
     console.log(`add 1`, objectWithProductCartId);
-    const response = await fetch(`http://localhost:5500/cart/addedBy1`, {
+    const response = await fetch(`https://project-1-backend-v3.vercel.app/cart/addedBy1`, {
       method: "POST",
       body: JSON.stringify(objectWithProductCartId),
       headers: {
@@ -70,7 +70,7 @@ export const removeOneToProductQuantityInCart = createAsyncThunk(
   "Remove/CartProductQuantity",
   async (objectWithProductCartId, { dispatch }) => {
     console.log(`remove 1`, objectWithProductCartId);
-    const response = await fetch(`http://localhost:5500/cart/subtractBy1`, {
+    const response = await fetch(`https://project-1-backend-v3.vercel.app/cart/subtractBy1`, {
       method: "POST",
       body: JSON.stringify(objectWithProductCartId),
       headers: {
@@ -85,7 +85,7 @@ export const removeOneToProductQuantityInCart = createAsyncThunk(
 );
 
 export const clearCart = createAsyncThunk("post/clearcart", async () => {
-  const response = fetch(`http://localhost:5500/cart/clear`, {
+  const response = fetch(`https://project-1-backend-v3.vercel.app/cart/clear`, {
     method: "GET",
     headers: {
       Authorization: localStorage.getItem(`project_1`),

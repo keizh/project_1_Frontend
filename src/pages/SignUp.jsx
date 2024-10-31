@@ -65,13 +65,16 @@ const SignUp = () => {
       //   console.log(successORfail);
     } else {
       setError(initialErrorState);
-      const response = await fetch(`http://localhost:5500/sign-up`, {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://project-1-backend-v3.vercel.app/sign-up`,
+        {
+          method: "POST",
+          body: JSON.stringify(formData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       console.log(data);
       // meaning the data was fetched correctly

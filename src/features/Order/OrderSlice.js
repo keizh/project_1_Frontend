@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const postOrder = createAsyncThunk(
   `post/order`,
   async (objForBackend, { dispatch }) => {
-    const response = fetch(`http://localhost:5500/order`, {
+    const response = fetch(`https://project-1-backend-v3.vercel.app/order`, {
       method: "POST",
       body: JSON.stringify(objForBackend),
       headers: {
@@ -18,12 +18,15 @@ export const postOrder = createAsyncThunk(
 );
 
 export const fetchOrders = createAsyncThunk("fetch/order", async () => {
-  const response = await fetch(`http://localhost:5500/order`, {
-    method: "GET",
-    headers: {
-      Authorization: localStorage.getItem(`project_1`),
-    },
-  });
+  const response = await fetch(
+    `https://project-1-backend-v3.vercel.app/order`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: localStorage.getItem(`project_1`),
+      },
+    }
+  );
   const data = await response.json();
   console.log(`orders:`, data);
   return data.data.Orders;

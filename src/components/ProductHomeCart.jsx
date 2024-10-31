@@ -75,9 +75,10 @@ export default function ProductHomeCart({ product }) {
     <Card className="w-full  shadow-lg">
       <CardHeader floated={false} color="blue-gray">
         <img
+          // src={`${"https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"}`}
           src={`${imageURL[colorOptions[0]]}`}
           className="h-[500px] md:h-[360px] object-contain object-center"
-          alt="product_image"
+          alt={`${colorOptions[0]}`}
         />
         <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
         <IconButton
