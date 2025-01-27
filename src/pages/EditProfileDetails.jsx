@@ -79,6 +79,7 @@ function EditProfileDetails() {
           onChange={handle}
         />
         <Input
+          disabled={true}
           required
           label="Email"
           type="email"
