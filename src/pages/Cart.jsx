@@ -165,7 +165,7 @@ function Cart() {
       {status == "error" && <p>{error}</p>}
       {status == "loading" && cartProducts.length == 0 && <h1>Loading...</h1>}
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Shopify Alert</DialogHeader>
+        <DialogHeader>INDIA BUY Alert</DialogHeader>
         <DialogBody>Your Order has been successfully placed</DialogBody>
         <DialogFooter>
           <Button variant="gradient" color="green" onClick={handleOpen}>
