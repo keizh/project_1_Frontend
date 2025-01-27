@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchCart = createAsyncThunk("get/cart", async () => {
@@ -15,14 +16,17 @@ export const fetchCart = createAsyncThunk("get/cart", async () => {
 export const postToCart = createAsyncThunk(
   "post/cart",
   async (product, { dispatch }) => {
-    const response = await fetch(`https://project-1-backend-v3.vercel.app/cart`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem(`project_1`),
-      },
-      body: JSON.stringify(product),
-    });
+    const response = await fetch(
+      `https://project-1-backend-v3.vercel.app/cart`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(`project_1`),
+        },
+        body: JSON.stringify(product),
+      }
+    );
     dispatch(fetchCart());
     const data = await response.json();
     return data;
@@ -52,14 +56,17 @@ export const addOneToProductQuantityInCart = createAsyncThunk(
   "Add/CartProductQuantity",
   async (objectWithProductCartId, { dispatch }) => {
     console.log(`add 1`, objectWithProductCartId);
-    const response = await fetch(`https://project-1-backend-v3.vercel.app/cart/addedBy1`, {
-      method: "POST",
-      body: JSON.stringify(objectWithProductCartId),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem(`project_1`),
-      },
-    });
+    const response = await fetch(
+      `https://project-1-backend-v3.vercel.app/cart/addedBy1`,
+      {
+        method: "POST",
+        body: JSON.stringify(objectWithProductCartId),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(`project_1`),
+        },
+      }
+    );
     const data = await response.json();
     // dispatch(fetchCart());
     return data;
@@ -70,31 +77,46 @@ export const removeOneToProductQuantityInCart = createAsyncThunk(
   "Remove/CartProductQuantity",
   async (objectWithProductCartId, { dispatch }) => {
     console.log(`remove 1`, objectWithProductCartId);
-    const response = await fetch(`https://project-1-backend-v3.vercel.app/cart/subtractBy1`, {
-      method: "POST",
-      body: JSON.stringify(objectWithProductCartId),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem(`project_1`),
-      },
-    });
+    const response = await fetch(
+      `https://project-1-backend-v3.vercel.app/cart/subtractBy1`,
+      {
+        method: "POST",
+        body: JSON.stringify(objectWithProductCartId),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(`project_1`),
+        },
+      }
+    );
     const data = await response.json();
     // dispatch(fetchCart());
     return data;
   }
 );
 
-export const clearCart = createAsyncThunk("post/clearcart", async () => {
-  const response = fetch(`https://project-1-backend-v3.vercel.app/cart/clear`, {
-    method: "GET",
-    headers: {
-      Authorization: localStorage.getItem(`project_1`),
-    },
-  });
-  const data = response.json();
-
-  return data;
-});
+export const clearCart = createAsyncThunk(
+  "post/clearcart",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = fetch(
+        `https://project-1-backend-v3.vercel.app/cart/clear`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: localStorage.getItem(`project_1`),
+          },
+        }
+      );
+      const data = response.json();
+      if (!response.ok) {
+        throw new Error(`Failed to clear cart`);
+      }
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 
 const CartSlice = createSlice({
   name: "CartSlice",
@@ -126,6 +148,9 @@ const CartSlice = createSlice({
       state.cart = state.cart.filter(
         (ele) => ele.productCartId != productCartId
       );
+    },
+    clearCartSYNC: (state) => {
+      state.cart = [];
     },
   },
   extraReducers: (builder) => {
@@ -209,5 +234,9 @@ const CartSlice = createSlice({
 
 export default CartSlice;
 
-export const { reduceQuantityOfProduct, addQuantityOfProduct, removeProduct } =
-  CartSlice.actions;
+export const {
+  clearCartSYNC,
+  reduceQuantityOfProduct,
+  addQuantityOfProduct,
+  removeProduct,
+} = CartSlice.actions;

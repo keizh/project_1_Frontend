@@ -106,7 +106,7 @@ const Signin = () => {
         )}
       </form>
       <p className="mb-[60px] text-xs ">
-        Don&#39t have an account ?{" "}
+        Don't have an account ?{" "}
         <NavLink to="/signup" className="text-green-500 font-bold">
           Sign Up
         </NavLink>

@@ -7,6 +7,7 @@ import { fetchOrders } from "../features/Order/OrderSlice";
 function Orders() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { address } = useSelector((state) => state.user);
   useEffect(() => {
     const authAccess = auth();
     console.log(`access : `, authAccess);
@@ -63,6 +64,9 @@ function Orders() {
                 className="mb-5"
               >
                 Total Price : $ {ele.total}
+              </Typography>
+              <Typography variant="h6" color="black" className="mb-5">
+                Order will get delivered at "{address}" within next 2 days
               </Typography>
             </div>
           ))}

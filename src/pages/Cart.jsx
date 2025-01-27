@@ -14,6 +14,7 @@ import {
 import ProductCart from "../components/ProductCart.jsx";
 import {
   fetchCart,
+  clearCartSYNC,
   removeFromcart,
   addOneToProductQuantityInCart,
   removeOneToProductQuantityInCart,
@@ -50,8 +51,8 @@ function Cart() {
     setTimeout(async () => {
       try {
         await dispatch(postOrder({ products: cartProducts, total: totalCost }));
-        await dispatch(clearCart());
-        await dispatch(fetchCart());
+        dispatch(clearCart());
+        dispatch(clearCartSYNC());
         setCartProducts([]);
         setLoading(false);
         setOpen(true);

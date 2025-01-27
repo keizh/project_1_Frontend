@@ -1,5 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchSingleProduct } from "../features/Product/ProductSlice";
+import {
+  fetchSingleProduct,
+  clearProduct,
+  makeWishListFalseForSelectedProduct,
+  makeWishListTrueForSelectedProduct,
+} from "../features/Product/ProductSlice";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { postToCart } from "../features/Cart/CartSlice";
@@ -63,14 +68,16 @@ function Product() {
   //   if (statusAddToCart != "idle") handleShowingAlert();
   // }, [statusAddToCart]);
 
-  const onClickHandler = () => {
+  const onClickHandler = (wishlistHeart) => {
+    console.log(`wishlist is ${wishlistHeart}`);
     // if its true , remove it from wishList , since it will removed now and the state will be changed to false meaning it is not part of wishlist anymoreH
-    if (wishlist) {
+    if (wishlistHeart) {
       dispatch(
         removeFromWishList({
           productId: productState?._id,
         })
       );
+      dispatch(makeWishListFalseForSelectedProduct());
     } else {
       // add it to wishlist since it will pushed in the wishlist
       dispatch(
@@ -84,9 +91,8 @@ function Product() {
           productName: productState?.name,
         })
       );
+      dispatch(makeWishListTrueForSelectedProduct());
     }
-    console.log();
-    setWishlist((state) => !state);
   };
 
   const handleAddToCart = (productState) => {
@@ -107,6 +113,12 @@ function Product() {
     );
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearProduct());
+    };
+  }, []);
+
   return (
     <div className="flex flex-col gap-[50px] pt-[70px]">
       <div className="my-3 flex flex-col sm:flex-row gap-[20px] items-center sm:items-start sm:sticky sm:top-0 justify-center max-w-screen-xl mx-auto">
@@ -124,10 +136,10 @@ function Product() {
             <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
             <IconButton
               size="sm"
-              color={wishlist ? "red" : "white"}
+              color={productState?.in_wishlist ? "red" : "white"}
               variant="text"
               className="!absolute top-4 right-4 rounded-full"
-              onClick={onClickHandler}
+              onClick={() => onClickHandler(productState?.in_wishlist)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

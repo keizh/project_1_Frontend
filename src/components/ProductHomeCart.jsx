@@ -17,6 +17,7 @@ import {
   addToWishList,
   removeFromWishList,
   fetchWishList,
+  removeFromWishListSYNC,
 } from "../features/Wishlist/WishListSlice";
 export default function ProductHomeCart({ product }) {
   const { WishList } = useSelector((state) => state.wishlist);
@@ -49,6 +50,7 @@ export default function ProductHomeCart({ product }) {
           productId: _id,
         })
       );
+      dispatch(removeFromWishListSYNC({ productId: _id }));
     } else {
       // add it to wishlist since it will pushed in the wishlist
       dispatch(
@@ -132,7 +134,7 @@ export default function ProductHomeCart({ product }) {
             </Typography>
           </div>
           <Button className="mt-2" size="lg" fullWidth={true}>
-            CHECKOUT
+            VIEW PRODUCT
           </Button>
         </CardBody>
       </NavLink>

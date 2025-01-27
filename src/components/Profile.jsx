@@ -91,7 +91,7 @@ export default function ProfileMenu() {
             </Typography>
           </MenuItem>
         </NavLink>
-        <NavLink to="/Help" className="block">
+        {/* <NavLink to="/Help" className="block">
           <MenuItem className="flex items-center gap-2">
             <svg
               width="16"
@@ -111,7 +111,7 @@ export default function ProfileMenu() {
               Help
             </Typography>
           </MenuItem>
-        </NavLink>
+        </NavLink> */}
         <hr className="my-2 border-blue-gray-50" />
         <MenuItem className="flex items-center gap-2 ">
           <svg

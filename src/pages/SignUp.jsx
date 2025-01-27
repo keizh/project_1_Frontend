@@ -197,7 +197,7 @@ const SignUp = () => {
           type="submit"
           className="flex justify-center gap-4 bg-green-500"
         >
-          Sign-In
+          Sign-UP
         </Button>
         {serverMessage.message && serverMessage.status == "success" && (
           <div className="text-[15px] text-center bg-green-500 text-white py-2 rounded">

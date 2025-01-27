@@ -63,7 +63,7 @@ export default function ProductWishlist({ product, setProducts }) {
             </Typography>
           </div>
           <Button className="mt-2" size="lg" fullWidth={true}>
-            CHECKOUT
+            VIEW PRODUCT
           </Button>
         </CardBody>
       </NavLink>

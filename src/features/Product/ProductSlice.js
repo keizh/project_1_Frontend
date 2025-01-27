@@ -33,7 +33,6 @@ export const fetchSingleProduct = createAsyncThunk(
   }
 );
 
-//
 export const fetchByCategory = createAsyncThunk(
   "fetch/productByCategory",
   async (ObjectWithCategoryName) => {
@@ -61,10 +60,23 @@ const productSlice = createSlice({
     error: null,
     product: null,
     category: "All",
+    price: "All",
   },
   reducers: {
+    setPrice: (state, action) => {
+      state.price = action.payload.price;
+    },
     setCategory: (state, action) => {
       state.category = action.payload.category;
+    },
+    clearProduct: (state) => {
+      state.product = null;
+    },
+    makeWishListFalseForSelectedProduct: (state) => {
+      state.product.in_wishlist = false;
+    },
+    makeWishListTrueForSelectedProduct: (state) => {
+      state.product.in_wishlist = true;
     },
   },
   extraReducers: (builder) => {
@@ -110,5 +122,11 @@ const productSlice = createSlice({
   },
 });
 
-export const { setCategory } = productSlice.actions;
+export const {
+  makeWishListFalseForSelectedProduct,
+  makeWishListTrueForSelectedProduct,
+  setCategory,
+  setPrice,
+  clearProduct,
+} = productSlice.actions;
 export default productSlice;
